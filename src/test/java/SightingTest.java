@@ -1,11 +1,10 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.sql2o.*;
-import java.util.Arrays;
 import java.util.List;
-import java.util.ArrayList;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.text.DateFormat;
 
 public class SightingTest {
 
@@ -30,12 +29,14 @@ public class SightingTest {
     assertEquals("Dave", testSighting.getRanger());
   }
 
-  // @Test
-  // public void getSightingTime_instantiatesWithSightTime() {
-  //   Sighting testSighting = new Sighting("Zone A", "Dave", 1);
-  //   Timestamp rightNow = testSighting.getSightingTime();
-  //   assertEquals(rightNow.getHour(), testSighting.getSightingTime().getHour());
-  // }
+  @Test
+  public void getSightingTime_recordsSightingTimeOnCreation() {
+    Sighting testSighting = new Sighting("Zone A", "Dave", 1);
+    testSighting.save();
+    Timestamp savedSightingTime = Sighting.find(testSighting.getId()).getSightingTime();
+    Timestamp rightNow = new Timestamp(new Date().getTime());
+    assertEquals(rightNow.getMinutes(), savedSightingTime.getMinutes());
+  }
 
   @Test
   public void getAnimalId_instantiatesWithAnimalId_1() {
@@ -65,6 +66,13 @@ public class SightingTest {
     secondSighting.save();
     assertTrue(Sighting.all().get(0).equals(firstSighting));
     assertTrue(Sighting.all().get(1).equals(secondSighting));
+  }
+
+  @Test
+  public void find_returnsMonsterWithSameId() {
+    Sighting testSighting = new Sighting("Zone A", "Dave", 1);
+    testSighting.save();
+    assertTrue(Sighting.find(testSighting.getId()).equals(testSighting));
   }
 
 }

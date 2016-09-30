@@ -1,6 +1,7 @@
 import java.util.List;
 import org.sql2o.*;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 
 
 public class Sighting implements DatabaseManagement {
@@ -67,6 +68,15 @@ public class Sighting implements DatabaseManagement {
       String allSightingQuery = "SELECT * FROM sightings";
       return con.createQuery(allSightingQuery)
                 .executeAndFetch(Sighting.class);
+    }
+  }
+
+  public static Sighting find(int id) {
+    try(Connection con = DB.sql2o.open()) {
+      String findSightingQuery = "SELECT * FROM sightings WHERE id = :id";
+      return con.createQuery(findSightingQuery)
+                .addParameter("id", id)
+                .executeAndFetchFirst(Sighting.class);
     }
   }
 
