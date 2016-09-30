@@ -23,9 +23,9 @@ public class EndangeredAnimalTest {
   }
 
   @Test
-  public void getEndangered_instantiatesWithEndangered_true() {
+  public void getType_instantiatesWithEndangered_true() {
     EndangeredAnimal testAnimal = new EndangeredAnimal("Roosevelt Elk", EndangeredAnimal.HEALTH_FAIR, EndangeredAnimal.AGE_ADULT);
-    assertEquals(true, testAnimal.getEndangered());
+    assertEquals("Endangered", testAnimal.getType());
   }
 
   @Test
@@ -48,22 +48,20 @@ public class EndangeredAnimalTest {
   }
 
   @Test
-  public void save_savesAnimalIntoDatabase_testAnimal() {
+  public void save_savesAnimalIntoDatabase_true() {
     EndangeredAnimal testAnimal = new EndangeredAnimal("Roosevelt Elk", EndangeredAnimal.HEALTH_FAIR, EndangeredAnimal.AGE_ADULT);
     testAnimal.save();
-    assertEquals(EndangeredAnimal.all().get(0), testAnimal);
+    assertTrue(EndangeredAnimal.all().get(0).equals(testAnimal));
   }
 
   @Test
   public void all_returnsAllInstancesOfEndnageredAnimal_true() {
     EndangeredAnimal firstAnimal = new EndangeredAnimal("Roosevelt Elk", EndangeredAnimal.HEALTH_FAIR, EndangeredAnimal.AGE_ADULT);
-    System.out.println(firstAnimal.getEndangered());
     firstAnimal.save();
     EndangeredAnimal secondAnimal = new EndangeredAnimal("Gray Wolf", EndangeredAnimal.HEALTH_HEALTHY, EndangeredAnimal.AGE_YOUNG);
     secondAnimal.save();
-    System.out.println(secondAnimal.getEndangered());
-    assertEquals(EndangeredAnimal.all().get(0), firstAnimal);
-    assertEquals(EndangeredAnimal.all().get(1), secondAnimal);
+    assertTrue(firstAnimal.equals(EndangeredAnimal.all().get(0)));
+    assertTrue(secondAnimal.equals(EndangeredAnimal.all().get(1)));
   }
 
 }
