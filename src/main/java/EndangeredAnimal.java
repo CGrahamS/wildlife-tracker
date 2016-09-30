@@ -62,12 +62,12 @@ public class EndangeredAnimal implements DatabaseManagement {
   @Override
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String saveEndangeredAnimalQuery = "INSERT INTO animals (name, health, age, endangered) VALUES (:name, :health, :age, :endangered)";
+      String saveEndangeredAnimalQuery = "INSERT INTO animals (name, endangered, health, age) VALUES (:name, :endangered, :health, :age)";
       this.id = (int) con.createQuery(saveEndangeredAnimalQuery, true)
                          .addParameter("name", this.name)
+                         .addParameter("endangered", this.endangered)
                          .addParameter("health", this.health)
                          .addParameter("age", this.age)
-                         .addParameter("endangered", this.endangered)
                          .executeUpdate()
                          .getKey();
     }
