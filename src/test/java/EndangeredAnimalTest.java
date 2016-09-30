@@ -25,7 +25,7 @@ public class EndangeredAnimalTest {
   @Test
   public void getType_instantiatesWithEndangered_true() {
     EndangeredAnimal testAnimal = new EndangeredAnimal("Roosevelt Elk", EndangeredAnimal.HEALTH_FAIR, EndangeredAnimal.AGE_ADULT);
-    assertEquals("Endangered", testAnimal.getType());
+    assertEquals(true, testAnimal.getEndangered());
   }
 
   @Test

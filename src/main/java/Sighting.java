@@ -5,4 +5,6 @@ import java.sql.Timestamp;
 
 public class Sighting {
 
+  
+
 }

@@ -4,11 +4,11 @@ import org.sql2o.*;
 public class EndangeredAnimal implements DatabaseManagement {
   private int id;
   private String name;
-  private String type;
+  private static boolean endangered;
   private String health;
   private String age;
 
-  public static final String DATABASE_TYPE = "Endangered";
+  public static final boolean ENDANGERED_STATUS = true;
 
   public static final String HEALTH_HEALTHY = "Healthy";
   public static final String HEALTH_FAIR = "Fair";
@@ -20,7 +20,7 @@ public class EndangeredAnimal implements DatabaseManagement {
 
   public EndangeredAnimal(String name, String health, String age) {
     this.name = name;
-    type = DATABASE_TYPE;
+    endangered = ENDANGERED_STATUS;
     this.health = health;
     this.age = age;
   }
@@ -33,8 +33,8 @@ public class EndangeredAnimal implements DatabaseManagement {
     return name;
   }
 
-  public String getType() {
-    return type;
+  public boolean getEndangered() {
+    return endangered;
   }
 
   public String getHealth() {
@@ -53,7 +53,7 @@ public class EndangeredAnimal implements DatabaseManagement {
       EndangeredAnimal newEndangeredAnimal = (EndangeredAnimal) otherEndangeredAnimal;
       return this.id == newEndangeredAnimal.getId() &&
              this.name.equals(newEndangeredAnimal.getName()) &&
-             this.type.equals(newEndangeredAnimal.getType()) &&
+             this.endangered == newEndangeredAnimal.getEndangered() &&
              this.health.equals(newEndangeredAnimal.getHealth()) &&
              this.age.equals(newEndangeredAnimal.getAge());
     }
@@ -62,12 +62,12 @@ public class EndangeredAnimal implements DatabaseManagement {
   @Override
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String saveEndangeredAnimalQuery = "INSERT INTO animals (name, type, health, age) VALUES (:name, :type, :health, :age)";
+      String saveEndangeredAnimalQuery = "INSERT INTO animals (name, health, age, endangered) VALUES (:name, :health, :age, :endangered)";
       this.id = (int) con.createQuery(saveEndangeredAnimalQuery, true)
                          .addParameter("name", this.name)
-                         .addParameter("type", this.type)
                          .addParameter("health", this.health)
                          .addParameter("age", this.age)
+                         .addParameter("endangered", this.endangered)
                          .executeUpdate()
                          .getKey();
     }
@@ -75,9 +75,9 @@ public class EndangeredAnimal implements DatabaseManagement {
 
   public static List<EndangeredAnimal> all() {
     try(Connection con = DB.sql2o.open()) {
-      String allEndangeredAnimalQuery = "SELECT * FROM animals WHERE type = :type";
+      String allEndangeredAnimalQuery = "SELECT * FROM animals WHERE endangered = :endangered";
       return con.createQuery(allEndangeredAnimalQuery)
-                .addParameter("type", EndangeredAnimal.DATABASE_TYPE)
+                .addParameter("endangered", endangered)
                 .executeAndFetch(EndangeredAnimal.class);
     }
   }

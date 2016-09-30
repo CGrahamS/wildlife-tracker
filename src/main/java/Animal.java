@@ -5,9 +5,13 @@ import org.sql2o.*;
 public class Animal implements DatabaseManagement {
   private int id;
   private String name;
+  private String type;
+
+  public static final String DATABASE_TYPE = "Non-Endangered";
 
   public Animal(String name) {
     this.name = name;
+    type = DATABASE_TYPE;
   }
 
   public int getId() {
@@ -16,6 +20,10 @@ public class Animal implements DatabaseManagement {
 
   public String getName() {
     return name;
+  }
+
+  public String getType() {
+    return type;
   }
 
   @Override
