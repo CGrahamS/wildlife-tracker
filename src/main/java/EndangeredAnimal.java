@@ -81,4 +81,14 @@ public class EndangeredAnimal implements DatabaseManagement {
                 .executeAndFetch(EndangeredAnimal.class);
     }
   }
+
+  public static EndangeredAnimal find(int id) {
+    try(Connection con = DB.sql2o.open()) {
+      String findEndangeredAnimalQuery = "SELECT * FROM animals WHERE id = :id AND endangered = :endangered";
+      return con.createQuery(findEndangeredAnimalQuery)
+                .addParameter("id", id)
+                .addParameter("endangered", endangered)
+                .executeAndFetchFirst(EndangeredAnimal.class);
+    }
+  }
 }

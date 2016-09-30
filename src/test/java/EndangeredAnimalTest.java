@@ -64,4 +64,11 @@ public class EndangeredAnimalTest {
     assertTrue(secondAnimal.equals(EndangeredAnimal.all().get(1)));
   }
 
+  @Test
+    public void find_returnsEndangeredAnimalWithSameId() {
+    EndangeredAnimal testAnimal = new EndangeredAnimal("Roosevelt Elk", EndangeredAnimal.HEALTH_FAIR, EndangeredAnimal.AGE_ADULT);
+    testAnimal.save();
+    assertTrue(EndangeredAnimal.find(testAnimal.getId()).equals(testAnimal));
+  }
+
 }
