@@ -58,4 +58,14 @@ public class Animal implements DatabaseManagement {
     }
   }
 
+  public static Animal find(int id) {
+    try(Connection con = DB.sql2o.open()) {
+      String findAnimalQuery = "SELECT * FROM animals WHERE id = :id";
+      return con.createQuery(findAnimalQuery)
+                .addParameter("id", id)
+                .throwOnMappingFailure(false)
+                .executeAndFetchFirst(Animal.class);
+    }
+  }
+
 }

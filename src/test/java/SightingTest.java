@@ -52,7 +52,7 @@ public class SightingTest {
   }
 
   @Test
-  public void save_savesSighitngIntoDatabase_true() {
+  public void save_savesSightingIntoDatabase_true() {
     Sighting testSighting = new Sighting("Zone A", "Dave", 1);
     testSighting.save();
     assertTrue(Sighting.all().get(0).equals(testSighting));
