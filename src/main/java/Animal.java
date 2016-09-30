@@ -68,4 +68,15 @@ public class Animal implements DatabaseManagement {
     }
   }
 
+  public void update(String name) {
+    try(Connection con = DB.sql2o.open()) {
+      this.name = name;
+      String updateAnimalQuery = "UPDATE animals SET name = :name WHERE id = :id";
+      con.createQuery(updateAnimalQuery)
+         .addParameter("name", name)
+         .addParameter("id", id)
+         .executeUpdate();
+    }
+  }
+
 }
