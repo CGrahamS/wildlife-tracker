@@ -2,9 +2,9 @@ import java.util.Arrays;
 import java.util.List;
 import org.sql2o.*;
 
-public class Animal {
-  public int id;
-  public String name;
+public class Animal implements DatabaseManagement {
+  private int id;
+  private String name;
 
   public Animal(String name) {
     this.name = name;
@@ -29,6 +29,7 @@ public class Animal {
     }
   }
 
+  @Override
   public void save() {
     try(Connection con = DB.sql2o.open()) {
       String saveAnimalQuery = "INSERT INTO animals (name) VALUES (:name)";

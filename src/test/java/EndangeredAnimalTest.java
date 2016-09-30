@@ -12,8 +12,58 @@ public class EndangeredAnimalTest {
 
   @Test
   public void EndangeredAnimal_instantiatesCorrectly_true() {
-    EndangeredAnimal testAnimal = new EndangeredAnimal("Roosevelt Elk", HEALTH_FAIR, AGE_ADULT);
-    assertTrue(testAnimal instancof EndangeredAnimal);
+    EndangeredAnimal testAnimal = new EndangeredAnimal("Roosevelt Elk", EndangeredAnimal.HEALTH_FAIR, EndangeredAnimal.AGE_ADULT);
+    assertTrue(testAnimal instanceof EndangeredAnimal);
+  }
+
+  @Test
+  public void getName_instantiesWithName_Roosevelt_Elk() {
+    EndangeredAnimal testAnimal = new EndangeredAnimal("Roosevelt Elk", EndangeredAnimal.HEALTH_FAIR, EndangeredAnimal.AGE_ADULT);
+    assertEquals("Roosevelt Elk", testAnimal.getName());
+  }
+
+  @Test
+  public void getEndangered_instantiatesWithEndangered_true() {
+    EndangeredAnimal testAnimal = new EndangeredAnimal("Roosevelt Elk", EndangeredAnimal.HEALTH_FAIR, EndangeredAnimal.AGE_ADULT);
+    assertEquals(true, testAnimal.getEndangered());
+  }
+
+  @Test
+  public void getHealth_instantiatesWithHealth_Fair() {
+    EndangeredAnimal testAnimal = new EndangeredAnimal("Roosevelt Elk", EndangeredAnimal.HEALTH_FAIR, EndangeredAnimal.AGE_ADULT);
+    assertEquals("Fair", testAnimal.getHealth());
+  }
+
+  @Test
+  public void getAge_instantiatesWithAge_Fair() {
+    EndangeredAnimal testAnimal = new EndangeredAnimal("Roosevelt Elk", EndangeredAnimal.HEALTH_FAIR, EndangeredAnimal.AGE_ADULT);
+    assertEquals("Adult", testAnimal.getAge());
+  }
+
+  @Test
+  public void equals_firstAnimalSameAsSecondAnimal_true() {
+    EndangeredAnimal firstAnimal = new EndangeredAnimal("Roosevelt Elk", EndangeredAnimal.HEALTH_FAIR, EndangeredAnimal.AGE_ADULT);
+    EndangeredAnimal secondAnimal = new EndangeredAnimal("Roosevelt Elk", EndangeredAnimal.HEALTH_FAIR, EndangeredAnimal.AGE_ADULT);
+    assertTrue(firstAnimal.equals(secondAnimal));
+  }
+
+  @Test
+  public void save_savesAnimalIntoDatabase_testAnimal() {
+    EndangeredAnimal testAnimal = new EndangeredAnimal("Roosevelt Elk", EndangeredAnimal.HEALTH_FAIR, EndangeredAnimal.AGE_ADULT);
+    testAnimal.save();
+    assertEquals(EndangeredAnimal.all().get(0), testAnimal);
+  }
+
+  @Test
+  public void all_returnsAllInstancesOfEndnageredAnimal_true() {
+    EndangeredAnimal firstAnimal = new EndangeredAnimal("Roosevelt Elk", EndangeredAnimal.HEALTH_FAIR, EndangeredAnimal.AGE_ADULT);
+    System.out.println(firstAnimal.getEndangered());
+    firstAnimal.save();
+    EndangeredAnimal secondAnimal = new EndangeredAnimal("Gray Wolf", EndangeredAnimal.HEALTH_HEALTHY, EndangeredAnimal.AGE_YOUNG);
+    secondAnimal.save();
+    System.out.println(secondAnimal.getEndangered());
+    assertEquals(EndangeredAnimal.all().get(0), firstAnimal);
+    assertEquals(EndangeredAnimal.all().get(1), secondAnimal);
   }
 
 }
