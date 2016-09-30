@@ -25,6 +25,12 @@ public class AnimalTest {
   }
 
   @Test
+  public void getEndangered_instantiateWithEndangeredStatus_false() {
+    Animal testAnimal = new Animal("Black Tailed Deer");
+    assertEquals(false, testAnimal.getEndangered());
+  }
+
+  @Test
   public void equals_firstAnimalSameAsSecondAnimal_true() {
     Animal firstAnimal = new Animal("Black Tailed Deer");
     Animal secondAnimal = new Animal("Black Tailed Deer");

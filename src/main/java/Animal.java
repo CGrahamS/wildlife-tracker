@@ -5,13 +5,13 @@ import org.sql2o.*;
 public class Animal implements DatabaseManagement {
   private int id;
   private String name;
-  private String type;
+  private static boolean endangered;
 
-  public static final String DATABASE_TYPE = "Non-Endangered";
+  public static final boolean ENDANGERED_STATUS = false;
 
   public Animal(String name) {
     this.name = name;
-    type = DATABASE_TYPE;
+    endangered = ENDANGERED_STATUS;
   }
 
   public int getId() {
@@ -22,8 +22,8 @@ public class Animal implements DatabaseManagement {
     return name;
   }
 
-  public String getType() {
-    return type;
+  public boolean getEndangered() {
+    return endangered;
   }
 
   @Override
@@ -33,7 +33,8 @@ public class Animal implements DatabaseManagement {
     } else {
       Animal newAnimal = (Animal) otherAnimal;
       return this.id == newAnimal.getId() &&
-             this.name.equals(newAnimal.getName());
+             this.name.equals(newAnimal.getName()) &&
+             this.endangered == newAnimal.getEndangered();
     }
   }
 
