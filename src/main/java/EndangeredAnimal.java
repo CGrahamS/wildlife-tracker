@@ -107,6 +107,7 @@ public class EndangeredAnimal implements DatabaseManagement {
     }
   }
 
+  @Override
   public void delete() {
     try(Connection con = DB.sql2o.open()) {
       String deleteEndangeredAnimalQuery = "DELETE FROM animals WHERE endangered = :endangered AND id = :id";

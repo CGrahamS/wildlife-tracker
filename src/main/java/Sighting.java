@@ -93,4 +93,14 @@ public class Sighting implements DatabaseManagement {
     }
   }
 
+  @Override
+  public void delete() {
+    try(Connection con = DB.sql2o.open()) {
+      String deleteSightingQuery = "DELETE FROM sightings WHERE id = :id";
+      con.createQuery(deleteSightingQuery)
+         .addParameter("id", id)
+         .executeUpdate();
+    }
+  }
+
 }

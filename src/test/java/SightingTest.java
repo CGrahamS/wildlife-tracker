@@ -84,4 +84,15 @@ public class SightingTest {
     assertEquals("Brad", testSighting.getRanger());
   }
 
+  @Test
+  public void delete_deletesSingleSighting_null() {
+    Sighting firstSighting = new Sighting("Zone A", "Dave", 1);
+    firstSighting.save();
+    Sighting secondSighting = new Sighting("Zone B", "Brad", 2);
+    secondSighting.save();
+    secondSighting.delete();
+    assertEquals(firstSighting, Sighting.find(firstSighting.getId()));
+    assertEquals(null, Sighting.find(secondSighting.getId()));
+  }
+
 }
