@@ -52,7 +52,7 @@ public class App {
       Map<String, Object> model = new HashMap<String, Object>();
       String name = request.queryParams("name");
       EndangeredAnimal newEndangeredAnimal = new EndangeredAnimal(name);
-      newAnimal.save();
+      newEndangeredAnimal.save();
       response.redirect("/");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());

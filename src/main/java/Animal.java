@@ -55,7 +55,6 @@ public class Animal implements DatabaseManagement {
       String allAnimalQuery = "SELECT * FROM animals WHERE endangered = :endangered";
       return con.createQuery(allAnimalQuery)
                 .addParameter("endangered", Animal.ENDANGERED_STATUS)
-                .throwOnMappingFailure(false)
                 .executeAndFetch(Animal.class);
     }
   }
@@ -65,7 +64,6 @@ public class Animal implements DatabaseManagement {
       String findAnimalQuery = "SELECT * FROM animals WHERE id = :id";
       return con.createQuery(findAnimalQuery)
                 .addParameter("id", id)
-                .throwOnMappingFailure(false)
                 .executeAndFetchFirst(Animal.class);
     }
   }

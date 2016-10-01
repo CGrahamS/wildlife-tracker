@@ -6,14 +6,32 @@ import java.text.DateFormat;
 
 public class Sighting implements DatabaseManagement {
   private int id;
+  private Timestamp sighting_time;
   private String location;
   private String ranger;
-  private Timestamp sighting_time;
+  private String health;
+  private String age;
   private int animal_id;
+
+  public static final String HEALTH_HEALTHY = "Healthy";
+  public static final String HEALTH_FAIR = "Fair";
+  public static final String HEALTH_ILL = "Ill";
+
+  public static final String AGE_ADULT = "Adult";
+  public static final String AGE_YOUNG = "Young";
+  public static final String AGE_NEWBORN = "Newborn";
 
   public Sighting(String location, String ranger, int animal_id) {
     this.location = location;
     this.ranger = ranger;
+    this.animal_id = animal_id;
+  }
+
+  public Sighting(String location, String ranger, String health, String age, int animal_id) {
+    this.location = location;
+    this.ranger = ranger;
+    this.health = health;
+    this.age = age;
     this.animal_id = animal_id;
   }
 
@@ -33,12 +51,34 @@ public class Sighting implements DatabaseManagement {
     return sighting_time;
   }
 
+  public String getHealth() {
+    return health;
+  }
+
+  public String getAge() {
+    return age;
+  }
+
   public int getAnimalId() {
     return animal_id;
   }
 
   @Override
   public boolean equals(Object otherSighting) {
+    if(!(otherSighting instanceof Sighting)) {
+      return false;
+    } else {
+      Sighting newSighting = (Sighting) otherSighting;
+      return this.id == newSighting.getId() &&
+             this.location.equals(newSighting.getLocation()) &&
+             this.ranger.equals(newSighting.getRanger()) &&
+             this.health.equals(newSighting.getHealth()) &&
+             this.age.equals(newSighting.getAge()) &&
+             this.animal_id == newSighting.getAnimalId();
+    }
+  }
+
+  public boolean animalEquals(Object otherSighting) {
     if(!(otherSighting instanceof Sighting)) {
       return false;
     } else {
@@ -53,11 +93,13 @@ public class Sighting implements DatabaseManagement {
   @Override
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String saveSightingQuery = "INSERT INTO sightings (location, ranger, sighting_time, animal_id) VALUES (:location, :ranger, now(), :animal_id)";
+      String saveSightingQuery = "INSERT INTO sightings (sighting_time, location, ranger, health, age, animal_id) VALUES (now(), :location, :ranger, :health, :age, :animal_id)";
       this.id = (int) con.createQuery(saveSightingQuery, true)
                          .addParameter("location", this.location)
                          .addParameter("ranger", this.ranger)
-                         .addParameter("animal_id", animal_id)
+                         .addParameter("health", this.health)
+                         .addParameter("age", this.age)
+                         .addParameter("animal_id", this.animal_id)
                          .executeUpdate()
                          .getKey();
     }
@@ -84,10 +126,12 @@ public class Sighting implements DatabaseManagement {
     try(Connection con = DB.sql2o.open()) {
       this.location = location;
       this.ranger = ranger;
-      String updateSightingQuery = "UPDATE sightings SET location = :location, ranger = :ranger WHERE id =:id";
+      String updateSightingQuery = "UPDATE sightings SET location = :location, ranger = :ranger, health = :health, age = :age WHERE id =:id";
       con.createQuery(updateSightingQuery)
          .addParameter("location", location)
          .addParameter("ranger", ranger)
+         .addParameter("health", health)
+         .addParameter("age", age)
          .addParameter("id", id)
          .executeUpdate();
     }

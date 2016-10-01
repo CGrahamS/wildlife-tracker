@@ -39,15 +39,27 @@ public class SightingTest {
   }
 
   @Test
+  public void getHealth_instantiatesWithHealth_Fair() {
+    Sighting testSighting = new Sighting("Zone A", "Dave", Sighting.HEALTH_FAIR, Sighting.AGE_ADULT, 1);
+    assertEquals("Fair", testSighting.getHealth());
+  }
+
+  @Test
+  public void getAge_instantiatesWithAge_Adult() {
+    Sighting testSighting = new Sighting("Zone A", "Dave", Sighting.HEALTH_FAIR, Sighting.AGE_ADULT, 1);
+    assertEquals("Adult", testSighting.getAge());
+  }
+
+  @Test
   public void getAnimalId_instantiatesWithAnimalId_1() {
     Sighting testSighting = new Sighting("Zone A", "Dave", 1);
     assertEquals(1, testSighting.getAnimalId());
   }
 
   @Test
-  public void equals_firstSightingEqualsSecondSighting_true() {
-    Sighting firstSighting = new Sighting("Zone A", "Dave", 1);
-    Sighting secondSighting = new Sighting("Zone A", "Dave", 1);
+  public void animalEquals_firstSightingEqualsSecondSighting_true() {
+    Sighting firstSighting = new Sighting("Zone A", "Dave", Sighting.HEALTH_FAIR, Sighting.AGE_ADULT, 1);
+    Sighting secondSighting = new Sighting("Zone A", "Dave", Sighting.HEALTH_FAIR, Sighting.AGE_ADULT, 1);
     assertTrue(firstSighting.equals(secondSighting));
   }
 
@@ -55,7 +67,7 @@ public class SightingTest {
   public void save_savesSightingIntoDatabase_true() {
     Sighting testSighting = new Sighting("Zone A", "Dave", 1);
     testSighting.save();
-    assertTrue(Sighting.all().get(0).equals(testSighting));
+    assertTrue(Sighting.all().get(0).animalEquals(testSighting));
   }
 
   @Test
@@ -64,15 +76,15 @@ public class SightingTest {
     firstSighting.save();
     Sighting secondSighting = new Sighting("Zone B", "Brad", 2);
     secondSighting.save();
-    assertTrue(Sighting.all().get(0).equals(firstSighting));
-    assertTrue(Sighting.all().get(1).equals(secondSighting));
+    assertTrue(Sighting.all().get(0).animalEquals(firstSighting));
+    assertTrue(Sighting.all().get(1).animalEquals(secondSighting));
   }
 
   @Test
   public void find_returnsSightingWithSameId() {
     Sighting testSighting = new Sighting("Zone A", "Dave", 1);
     testSighting.save();
-    assertTrue(Sighting.find(testSighting.getId()).equals(testSighting));
+    assertTrue(Sighting.find(testSighting.getId()).animalEquals(testSighting));
   }
 
   @Test
