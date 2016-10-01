@@ -41,9 +41,10 @@ public class Animal implements DatabaseManagement {
   @Override
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String saveAnimalQuery = "INSERT INTO animals (name) VALUES (:name)";
+      String saveAnimalQuery = "INSERT INTO animals (name, endangered) VALUES (:name, :endangered)";
       this.id = (int) con.createQuery(saveAnimalQuery, true)
                          .addParameter("name", this.name)
+                         .addParameter("endangered", this.endangered)
                          .executeUpdate()
                          .getKey();
     }
@@ -75,6 +76,16 @@ public class Animal implements DatabaseManagement {
       con.createQuery(updateAnimalQuery)
          .addParameter("name", name)
          .addParameter("id", id)
+         .executeUpdate();
+    }
+  }
+
+  public void delete() {
+    try(Connection con = DB.sql2o.open()) {
+      String deleteAnimalQuery = "DELETE FROM animals WHERE endangered = :endangered AND id = :id";
+      con.createQuery(deleteAnimalQuery)
+         .addParameter("endangered", this.endangered)
+         .addParameter("id", this.id)
          .executeUpdate();
     }
   }

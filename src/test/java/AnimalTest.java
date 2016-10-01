@@ -68,4 +68,15 @@ public class AnimalTest {
     firstAnimal.update("Black Tail Deer");
     assertEquals("Black Tail Deer", firstAnimal.getName());
   }
+
+  @Test
+  public void delete_deletesASingleAnimal_true() {
+    Animal firstAnimal = new Animal("Black Tailed Deer");
+    firstAnimal.save();
+    Animal secondAnimal = new Animal("Black Bear");
+    secondAnimal.save();
+    secondAnimal.delete();
+    assertEquals(firstAnimal, Animal.find(firstAnimal.getId()));
+    assertEquals(null, Animal.find(secondAnimal.getId()));
+  }
 }

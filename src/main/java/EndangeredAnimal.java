@@ -106,4 +106,14 @@ public class EndangeredAnimal implements DatabaseManagement {
          .executeUpdate();
     }
   }
+
+  public void delete() {
+    try(Connection con = DB.sql2o.open()) {
+      String deleteEndangeredAnimalQuery = "DELETE FROM animals WHERE endangered = :endangered AND id = :id";
+      con.createQuery(deleteEndangeredAnimalQuery)
+         .addParameter("endangered", endangered)
+         .addParameter("id", id)
+         .executeUpdate();
+    }
+  }
 }
