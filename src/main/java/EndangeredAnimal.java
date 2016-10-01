@@ -77,7 +77,7 @@ public class EndangeredAnimal implements DatabaseManagement {
     try(Connection con = DB.sql2o.open()) {
       String allEndangeredAnimalQuery = "SELECT * FROM animals WHERE endangered = :endangered";
       return con.createQuery(allEndangeredAnimalQuery)
-                .addParameter("endangered", endangered)
+                .addParameter("endangered", EndangeredAnimal.ENDANGERED_STATUS)
                 .executeAndFetch(EndangeredAnimal.class);
     }
   }

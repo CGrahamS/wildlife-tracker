@@ -52,8 +52,9 @@ public class Animal implements DatabaseManagement {
 
   public static List<Animal> all() {
     try(Connection con = DB.sql2o.open()) {
-      String allAnimalQuery = "SELECT * FROM animals";
+      String allAnimalQuery = "SELECT * FROM animals WHERE endangered = :endangered";
       return con.createQuery(allAnimalQuery)
+                .addParameter("endangered", Animal.ENDANGERED_STATUS)
                 .throwOnMappingFailure(false)
                 .executeAndFetch(Animal.class);
     }
