@@ -69,10 +69,19 @@ public class SightingTest {
   }
 
   @Test
-  public void find_returnsMonsterWithSameId() {
+  public void find_returnsSightingWithSameId() {
     Sighting testSighting = new Sighting("Zone A", "Dave", 1);
     testSighting.save();
     assertTrue(Sighting.find(testSighting.getId()).equals(testSighting));
+  }
+
+  @Test
+  public void update_updatesSighting_true() {
+    Sighting testSighting = new Sighting("Zone A", "Dave", 1);
+    testSighting.save();
+    testSighting.update("Zone B", "Brad");
+    assertEquals("Zone B", testSighting.getLocation());
+    assertEquals("Brad", testSighting.getRanger());
   }
 
 }
