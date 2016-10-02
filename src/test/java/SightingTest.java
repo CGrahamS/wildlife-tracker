@@ -107,4 +107,16 @@ public class SightingTest {
     assertEquals(null, Sighting.find(secondSighting.getId()));
   }
 
+  @Test
+  public void sighting_cannotBeInstantiedWithEmptyRanger_null() {
+    Sighting firstSighting = new Sighting("Zone A", "", Sighting.HEALTH_2, Sighting.AGE_1, 1);
+    assertEquals(null, Sighting.find(firstSighting.getId()));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void sighting_throwsExceptionIfRangerIsEmpty() {
+    Sighting firstSighting = new Sighting("Zone A", "", Sighting.HEALTH_2, Sighting.AGE_1, 1);
+    firstSighting.save();
+  }
+
 }

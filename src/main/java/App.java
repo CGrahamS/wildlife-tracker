@@ -74,8 +74,13 @@ public class App {
       int animalId = animal.getId();
       String location = request.queryParams("location");
       String ranger = request.queryParams("ranger");
-      Sighting newSighting = new Sighting(location, ranger, animalId);
-      newSighting.save();
+      try {
+        Sighting newSighting = new Sighting(location, ranger, animalId);
+        newSighting.save();
+      } catch (IllegalArgumentException exception){
+        response.redirect("/animal/" + animal.getName() + "/" + animal.getId() + "/details");
+        return new ModelAndView(model, layout);
+      }
       response.redirect("/animal/" + animal.getName() + "/" + animal.getId() + "/details");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());

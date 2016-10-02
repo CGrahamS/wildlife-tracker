@@ -82,9 +82,9 @@ public class EndangeredAnimalTest {
   public void getSightings_returnsAllSightingsWithSameAnimalId_true() {
     EndangeredAnimal firstAnimal = new EndangeredAnimal("Roosevelt Elk");
     firstAnimal.save();
-    Sighting firstSighting = new Sighting("Zone A", "Dave", Sighting.HEALTH_FAIR, Sighting.AGE_ADULT, firstAnimal.getId());
+    Sighting firstSighting = new Sighting("Zone A", "Dave", Sighting.HEALTH_2, Sighting.AGE_1, firstAnimal.getId());
     firstSighting.save();
-    Sighting secondSighting = new Sighting("Zone B", "Brad", Sighting.HEALTH_FAIR, Sighting.AGE_ADULT, firstAnimal.getId());
+    Sighting secondSighting = new Sighting("Zone B", "Brad", Sighting.HEALTH_2, Sighting.AGE_1, firstAnimal.getId());
     secondSighting.save();
     assertEquals(firstSighting, firstAnimal.getSightings().get(0));
     assertEquals(secondSighting, firstAnimal.getSightings().get(1));

@@ -92,6 +92,9 @@ public class Sighting implements DatabaseManagement {
 
   @Override
   public void save() {
+    if (this.ranger == null || this.ranger.trim().isEmpty()) {
+      throw new IllegalArgumentException("You can't submit a sighting without specifying a ranger!");
+    }
     try(Connection con = DB.sql2o.open()) {
       String saveSightingQuery = "INSERT INTO sightings (sighting_time, location, ranger, health, age, animal_id) VALUES (now(), :location, :ranger, :health, :age, :animal_id)";
       this.id = (int) con.createQuery(saveSightingQuery, true)
