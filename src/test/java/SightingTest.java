@@ -110,6 +110,9 @@ public class SightingTest {
   @Test
   public void sighting_cannotBeInstantiedWithEmptyRanger_null() {
     Sighting firstSighting = new Sighting("Zone A", "", Sighting.HEALTH_2, Sighting.AGE_1, 1);
+    try {
+      firstSighting.save();
+    } catch (IllegalArgumentException exception){}
     assertEquals(null, Sighting.find(firstSighting.getId()));
   }
 
