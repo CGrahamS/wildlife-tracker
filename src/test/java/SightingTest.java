@@ -98,9 +98,9 @@ public class SightingTest {
 
   @Test
   public void delete_deletesSingleSighting_null() {
-    Sighting firstSighting = new Sighting("Zone A", "Dave", 1);
+    Sighting firstSighting = new Sighting("Zone A", "Dave", Sighting.HEALTH_FAIR, Sighting.AGE_ADULT, 1);
     firstSighting.save();
-    Sighting secondSighting = new Sighting("Zone B", "Brad", 2);
+    Sighting secondSighting = new Sighting("Zone B", "Brad", Sighting.HEALTH_FAIR, Sighting.AGE_ADULT, 2);
     secondSighting.save();
     secondSighting.delete();
     assertEquals(firstSighting, Sighting.find(firstSighting.getId()));
