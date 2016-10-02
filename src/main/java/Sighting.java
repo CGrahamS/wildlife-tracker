@@ -13,13 +13,13 @@ public class Sighting implements DatabaseManagement {
   private String age;
   private int animal_id;
 
-  public static final String HEALTH_HEALTHY = "Healthy";
-  public static final String HEALTH_FAIR = "Fair";
-  public static final String HEALTH_ILL = "Ill";
+  public static final String HEALTH_1 = "Healthy";
+  public static final String HEALTH_2 = "Fair";
+  public static final String HEALTH_3 = "Poorly";
 
-  public static final String AGE_ADULT = "Adult";
-  public static final String AGE_YOUNG = "Young";
-  public static final String AGE_NEWBORN = "Newborn";
+  public static final String AGE_1 = "Adult";
+  public static final String AGE_2 = "Immature";
+  public static final String AGE_3 = "Newborn";
 
   public Sighting(String location, String ranger, int animal_id) {
     this.location = location;

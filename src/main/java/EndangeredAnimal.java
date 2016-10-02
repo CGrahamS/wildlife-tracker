@@ -58,12 +58,12 @@ public class EndangeredAnimal implements DatabaseManagement {
     }
   }
 
-  public static EndangeredAnimal find(int id) {
+  public static EndangeredAnimal find(String name, int id) {
     try(Connection con = DB.sql2o.open()) {
-      String findEndangeredAnimalQuery = "SELECT * FROM animals WHERE id = :id AND endangered = :endangered";
+      String findEndangeredAnimalQuery = "SELECT * FROM animals WHERE name = :name AND id = :id";
       return con.createQuery(findEndangeredAnimalQuery)
+                .addParameter("name", name)
                 .addParameter("id", id)
-                .addParameter("endangered", endangered)
                 .executeAndFetchFirst(EndangeredAnimal.class);
     }
   }
@@ -87,6 +87,15 @@ public class EndangeredAnimal implements DatabaseManagement {
          .addParameter("endangered", endangered)
          .addParameter("id", id)
          .executeUpdate();
+    }
+  }
+
+  public List<Sighting> getSightings() {
+    try(Connection con = DB.sql2o.open()) {
+      String getSightingsQuery = "SELECT * FROM sightings WHERE animal_id = :id";
+      return con.createQuery(getSightingsQuery)
+                .addParameter("id", id)
+                .executeAndFetch(Sighting.class);
     }
   }
 }

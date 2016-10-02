@@ -59,10 +59,11 @@ public class Animal implements DatabaseManagement {
     }
   }
 
-  public static Animal find(int id) {
+  public static Animal find(String name, int id) {
     try(Connection con = DB.sql2o.open()) {
-      String findAnimalQuery = "SELECT * FROM animals WHERE id = :id";
+      String findAnimalQuery = "SELECT * FROM animals WHERE name = :name AND id = :id";
       return con.createQuery(findAnimalQuery)
+                .addParameter("name", name)
                 .addParameter("id", id)
                 .executeAndFetchFirst(Animal.class);
     }
@@ -87,6 +88,15 @@ public class Animal implements DatabaseManagement {
          .addParameter("endangered", this.endangered)
          .addParameter("id", this.id)
          .executeUpdate();
+    }
+  }
+
+  public List<Sighting> getSightings() {
+    try(Connection con = DB.sql2o.open()) {
+      String getSightingsQuery = "SELECT * FROM sightings WHERE animal_id = :id";
+      return con.createQuery(getSightingsQuery)
+                .addParameter("id", id)
+                .executeAndFetch(Sighting.class);
     }
   }
 

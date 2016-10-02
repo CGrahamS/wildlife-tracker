@@ -40,13 +40,13 @@ public class SightingTest {
 
   @Test
   public void getHealth_instantiatesWithHealth_Fair() {
-    Sighting testSighting = new Sighting("Zone A", "Dave", Sighting.HEALTH_FAIR, Sighting.AGE_ADULT, 1);
+    Sighting testSighting = new Sighting("Zone A", "Dave", Sighting.HEALTH_2, Sighting.AGE_1, 1);
     assertEquals("Fair", testSighting.getHealth());
   }
 
   @Test
   public void getAge_instantiatesWithAge_Adult() {
-    Sighting testSighting = new Sighting("Zone A", "Dave", Sighting.HEALTH_FAIR, Sighting.AGE_ADULT, 1);
+    Sighting testSighting = new Sighting("Zone A", "Dave", Sighting.HEALTH_2, Sighting.AGE_1, 1);
     assertEquals("Adult", testSighting.getAge());
   }
 
@@ -58,8 +58,8 @@ public class SightingTest {
 
   @Test
   public void animalEquals_firstSightingEqualsSecondSighting_true() {
-    Sighting firstSighting = new Sighting("Zone A", "Dave", Sighting.HEALTH_FAIR, Sighting.AGE_ADULT, 1);
-    Sighting secondSighting = new Sighting("Zone A", "Dave", Sighting.HEALTH_FAIR, Sighting.AGE_ADULT, 1);
+    Sighting firstSighting = new Sighting("Zone A", "Dave", Sighting.HEALTH_2, Sighting.AGE_1, 1);
+    Sighting secondSighting = new Sighting("Zone A", "Dave", Sighting.HEALTH_2, Sighting.AGE_1, 1);
     assertTrue(firstSighting.equals(secondSighting));
   }
 
@@ -98,9 +98,9 @@ public class SightingTest {
 
   @Test
   public void delete_deletesSingleSighting_null() {
-    Sighting firstSighting = new Sighting("Zone A", "Dave", Sighting.HEALTH_FAIR, Sighting.AGE_ADULT, 1);
+    Sighting firstSighting = new Sighting("Zone A", "Dave", Sighting.HEALTH_2, Sighting.AGE_1, 1);
     firstSighting.save();
-    Sighting secondSighting = new Sighting("Zone B", "Brad", Sighting.HEALTH_FAIR, Sighting.AGE_ADULT, 2);
+    Sighting secondSighting = new Sighting("Zone B", "Brad", Sighting.HEALTH_2, Sighting.AGE_1, 2);
     secondSighting.save();
     secondSighting.delete();
     assertEquals(firstSighting, Sighting.find(firstSighting.getId()));

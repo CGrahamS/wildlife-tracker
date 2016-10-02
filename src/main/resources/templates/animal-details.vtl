@@ -1,0 +1,47 @@
+<h3>Sightings <small>($animal.getName())</small></h3>
+#if($sightings.size() < 1)
+  <h5>No sightings yet.</h5>
+#else
+<table class="table table-hover">
+  <tr>
+    <th>Sighting ID</th>
+    <th>Ranger</th>
+    <th>Location</th>
+    <th>Sighting Time</th>
+  </tr>
+  #foreach($sighting in $sightings)
+    <tr>
+      <td>$sighting.getId()</td>
+      <td>$sighting.getRanger()</td>
+      <td>$sighting.getLocation()</td>
+      <td>$sighting.getSightingTime()</td>
+    </tr>
+  #end
+</table>
+#end
+<hr>
+<h4>Add a sighting of $animal.getName():</h4>
+<form action="/animal/$animal.getName()/$animal.getId()/sighting" method="post">
+  <div class="row">
+    <div class="form-group col-md-2">
+      <label for="ranger"><h4>Ranger:</h4></label>
+      <input id="ranger" name="ranger" type="text" class="form-control" placeholder="Name">
+    </div>
+    <div class="form-group col-md-3 col-md-offset-1">
+      <h4>Location:</h4>
+      <label class="radio">
+        <input type="radio" name="location" id="location" value="Zone A"> Zone A
+      </label>
+      <label class="radio">
+        <input type="radio" name="location" id="location" value="Zone B"> Zone B
+      </label>
+      <label class="radio">
+        <input type="radio" name="location" id="location" value="Zone C"> Zone C
+      </label>
+      <label class="radio">
+        <input type="radio" name="location" id="location" value="Zone D"> Zone D
+      </label>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-success">Add Sighting</button>
+</form>

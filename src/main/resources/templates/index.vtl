@@ -2,31 +2,33 @@
   <div class="col-md-6">
     <h3>Animals:</h3>
     #if($animals.size() < 1)
-      <h5>Add an animal by clicking the link below!</h5>
+      <h5>Add an animal by clicking the button below!</h5>
     #else
       <ul>
         #foreach($animal in $animals)
           <li>
             <h4>$animal.getName()</h4>
+            <a href="/animal/$animal.getName()/$animal.getId()/details" class="btn btn-info">Details</a>
           </li>
         #end
       </ul>
     #end
-    <a href="/animal/new" class="btn btn-success"><h5>Add A New Animal!</h5></a>
+    <a href="/animal/new" class="btn btn-success"><h5>Add a New Animal!</h5></a>
   </div>
   <div class="col-md-6">
     <h3>Endangered Animals:</h3>
-    #if($endangeredanimals.size() < 1)
-      <h5>Add an endangered animal by clicking the link below!</h5>
+    #if($endangeredAnimals.size() < 1)
+      <h5>Add an endangered animal by clicking the button below!</h5>
     #else
       <ul>
-        #foreach($endangeredanimal in $endangeredanimals)
+        #foreach($endangeredAnimal in $endangeredAnimals)
           <li>
-            <h4>$endangeredanimal.getName()</h4>
+            <h4>$endangeredAnimal.getName()</h4>
+            <a href="/endangered-animal/$endangeredAnimal.getName()/$endangeredAnimal.getId()/details" class="btn btn-info">Details</a>
           </li>
         #end
       </ul>
     #end
-    <a href="/endangered-animal/new" class="btn btn-success"><h5>Add A New Endangered Animal!</h5></a>
+    <a href="/endangered-animal/new" class="btn btn-success"><h5>Add a New Endangered Animal!</h5></a>
   </div>
 </div>

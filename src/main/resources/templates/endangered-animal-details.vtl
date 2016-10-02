@@ -1,0 +1,75 @@
+<h3>Sightings <small>($endangeredAnimal.getName())</small></h3>
+#if($sightings.size() < 1)
+  <h4>No sightings yet.</h4>
+#else
+  <table class="table table-hover">
+    <tr>
+      <th>Sighting ID</th>
+      <th>Ranger</th>
+      <th>Location</th>
+      <th>Sighting Time</th>
+      <th>Health</th>
+      <th>Age</th>
+    </tr>
+    #foreach($sighting in $sightings)
+      <tr>
+        <td>$sighting.getId()</td>
+        <td>$sighting.getRanger()</td>
+        <td>$sighting.getLocation()</td>
+        <td>$sighting.getSightingTime()</td>
+        <td>$sighting.getHealth()</td>
+        <td>$sighting.getAge()</td>
+      </tr>
+    #end
+  </table>
+#end
+<hr>
+<h4>Add a sighting of $endangeredAnimal.getName():</h4>
+<form action="/endangered-animal/$endangeredAnimal.getName()/$endangeredAnimal.getId()/sighting" method="post">
+  <div class="row">
+    <div class="form-group col-md-2">
+      <label for="ranger"><h4>Ranger:</h4></label>
+      <input id="ranger" name="ranger" type="text" class="form-control" placeholder="Name">
+    </div>
+    <div class="form-group col-md-3 col-md-offset-1">
+      <h4>Location:</h4>
+      <label class="radio">
+        <input type="radio" name="location" id="location" value="Zone A"> Zone A
+      </label>
+      <label class="radio">
+        <input type="radio" name="location" id="location" value="Zone B"> Zone B
+      </label>
+      <label class="radio">
+        <input type="radio" name="location" id="location" value="Zone C"> Zone C
+      </label>
+      <label class="radio">
+        <input type="radio" name="location" id="location" value="Zone D"> Zone D
+      </label>
+    </div>
+    <div class="form-group col-md-3">
+      <h4>Health:</h4>
+      <label class="radio">
+        <input type="radio" name="health" id="health" value=$health1> $health1
+      </label>
+      <label class="radio">
+        <input type="radio" name="health" id="health" value=$health2> $health2
+      </label>
+      <label class="radio">
+        <input type="radio" name="health" id="health" value=$health3> $health3
+      </label>
+    </div>
+    <div class="form-group col-md-3">
+      <h4>Age:</h4>
+      <label class="radio">
+        <input type="radio" name="age" id="age" value=$age1> $age1
+      </label>
+      <label class="radio">
+        <input type="radio" name="age" id="age" value=$age2> $age2
+      </label>
+      <label class="radio">
+        <input type="radio" name="age" id="age" value=$age3> $age3
+      </label>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-success">Add Sighting</button>
+</form>

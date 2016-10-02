@@ -56,7 +56,7 @@ public class EndangeredAnimalTest {
     public void find_returnsEndangeredAnimalWithSameId() {
     EndangeredAnimal testAnimal = new EndangeredAnimal("Roosevelt Elk");
     testAnimal.save();
-    assertTrue(EndangeredAnimal.find(testAnimal.getId()).equals(testAnimal));
+    assertTrue(EndangeredAnimal.find(testAnimal.getName(), testAnimal.getId()).equals(testAnimal));
   }
 
   @Test
@@ -74,8 +74,20 @@ public class EndangeredAnimalTest {
     EndangeredAnimal secondAnimal = new EndangeredAnimal("Panda Bear");
     secondAnimal.save();
     secondAnimal.delete();
-    assertEquals(firstAnimal, EndangeredAnimal.find(firstAnimal.getId()));
-    assertEquals(null, EndangeredAnimal.find(secondAnimal.getId()));
+    assertEquals(firstAnimal, EndangeredAnimal.find(firstAnimal.getName(), firstAnimal.getId()));
+    assertEquals(null, EndangeredAnimal.find(secondAnimal.getName(), secondAnimal.getId()));
+  }
+
+  @Test
+  public void getSightings_returnsAllSightingsWithSameAnimalId_true() {
+    EndangeredAnimal firstAnimal = new EndangeredAnimal("Roosevelt Elk");
+    firstAnimal.save();
+    Sighting firstSighting = new Sighting("Zone A", "Dave", Sighting.HEALTH_FAIR, Sighting.AGE_ADULT, firstAnimal.getId());
+    firstSighting.save();
+    Sighting secondSighting = new Sighting("Zone B", "Brad", Sighting.HEALTH_FAIR, Sighting.AGE_ADULT, firstAnimal.getId());
+    secondSighting.save();
+    assertEquals(firstSighting, firstAnimal.getSightings().get(0));
+    assertEquals(secondSighting, firstAnimal.getSightings().get(1));
   }
 
 }

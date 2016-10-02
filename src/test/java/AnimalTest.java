@@ -58,7 +58,7 @@ public class AnimalTest {
   public void find_returnsAnimalWithSameId_true() {
     Animal firstAnimal = new Animal("Black Tailed Deer");
     firstAnimal.save();
-    assertTrue(Animal.find(firstAnimal.getId()).equals(firstAnimal));
+    assertTrue(Animal.find(firstAnimal.getName(), firstAnimal.getId()).equals(firstAnimal));
   }
 
   @Test
@@ -76,7 +76,19 @@ public class AnimalTest {
     Animal secondAnimal = new Animal("Black Bear");
     secondAnimal.save();
     secondAnimal.delete();
-    assertEquals(firstAnimal, Animal.find(firstAnimal.getId()));
-    assertEquals(null, Animal.find(secondAnimal.getId()));
+    assertEquals(firstAnimal, Animal.find(firstAnimal.getName(), firstAnimal.getId()));
+    assertEquals(null, Animal.find(secondAnimal.getName(), secondAnimal.getId()));
+  }
+
+  @Test
+  public void getSightings_returnsAllSightingsWithSameAnimalId_true() {
+    Animal firstAnimal = new Animal("Black Tailed Deer");
+    firstAnimal.save();
+    Sighting firstSighting = new Sighting("Zone A", "Dave", Sighting.HEALTH_FAIR, Sighting.AGE_ADULT, firstAnimal.getId());
+    firstSighting.save();
+    Sighting secondSighting = new Sighting("Zone B", "Brad", Sighting.HEALTH_FAIR, Sighting.AGE_ADULT, firstAnimal.getId());
+    secondSighting.save();
+    assertEquals(firstSighting, firstAnimal.getSightings().get(0));
+    assertEquals(secondSighting, firstAnimal.getSightings().get(1));
   }
 }
