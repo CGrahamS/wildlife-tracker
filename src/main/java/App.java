@@ -96,6 +96,10 @@ public class App {
       model.put("header", header);
       model.put("endangeredAnimal", endangeredAnimal);
       model.put("sightings", endangeredAnimal.getSightings());
+      model.put("location1", Sighting.LOCATION_1);
+      model.put("location2", Sighting.LOCATION_2);
+      model.put("location3", Sighting.LOCATION_3);
+      model.put("location4", Sighting.LOCATION_4);
       model.put("health1", Sighting.HEALTH_1);
       model.put("health2", Sighting.HEALTH_2);
       model.put("health3", Sighting.HEALTH_3);
@@ -163,6 +167,55 @@ public class App {
       Sighting sighting = Sighting.find(Integer.parseInt(request.params(":sighting_id")));
       sighting.delete();
       response.redirect("/animal/" + animal.getName() + "/" + animal.getId() + "/" + "/details");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/endangered-animal/:name/:id/:sighting_id/edit", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      EndangeredAnimal endangeredAnimal = EndangeredAnimal.find(request.params(":name"), Integer.parseInt(request.params(":id")));
+      Sighting sighting = Sighting.find(Integer.parseInt(request.params(":sighting_id")));
+      model.put("title", endangeredAnimal.getName() + "'s Details");
+      model.put("header", header);
+      model.put("endangeredAnimal", endangeredAnimal);
+      model.put("sighting", sighting);
+      model.put("location1", Sighting.LOCATION_1);
+      model.put("location2", Sighting.LOCATION_2);
+      model.put("location3", Sighting.LOCATION_3);
+      model.put("location4", Sighting.LOCATION_4);
+      model.put("health1", Sighting.HEALTH_1);
+      model.put("health2", Sighting.HEALTH_2);
+      model.put("health3", Sighting.HEALTH_3);
+      model.put("age1", Sighting.AGE_1);
+      model.put("age2", Sighting.AGE_2);
+      model.put("age3", Sighting.AGE_3);
+      model.put("template", "templates/endangered-animal-sighting-edit.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/endangered-animal/:name/:id/:sighting_id/update", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      EndangeredAnimal endangeredAnimal = EndangeredAnimal.find(request.params(":name"), Integer.parseInt(request.params(":id")));
+      Sighting sighting = Sighting.find(Integer.parseInt(request.params(":sighting_id")));
+      String location = request.queryParams("location");
+      String ranger = request.queryParams("ranger");
+      String health = request.queryParams("health");
+      String age = request.queryParams("age");
+      try {
+        sighting.updateEndangered(location, ranger, health, age);
+      } catch (IllegalArgumentException exception){
+        response.redirect("/endangered-animal/" + endangeredAnimal.getName() + "/" + endangeredAnimal.getId() + "/" + sighting.getId() + "/edit");
+        return new ModelAndView(model, layout);
+      }
+      response.redirect("/endangered-animal/" + endangeredAnimal.getName() + "/" + endangeredAnimal.getId() + "/" + sighting.getId() + "/edit");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/endangered-animal/:name/:id/:sighting_id/delete", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      EndangeredAnimal endangeredAnimal = EndangeredAnimal.find(request.params(":name"), Integer.parseInt(request.params(":id")));
+      Sighting sighting = Sighting.find(Integer.parseInt(request.params(":sighting_id")));
+      sighting.delete();
+      response.redirect("/endangered-animal/" + endangeredAnimal.getName() + "/" + endangeredAnimal.getId() + "/details");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 

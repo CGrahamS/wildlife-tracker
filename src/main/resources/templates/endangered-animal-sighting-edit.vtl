@@ -1,41 +1,29 @@
 <h3>Sightings <small>($endangeredAnimal.getName())</small></h3>
-#if($sightings.size() < 1)
-  <h4>No sightings yet.</h4>
-#else
-  <table class="table table-hover">
+<table class="table table-hover">
+  <tr>
+    <th>Sighting ID</th>
+    <th>Ranger</th>
+    <th>Location</th>
+    <th>Sighting Time</th>
+    <th>Health</th>
+    <th>Age</th>
+  </tr>
     <tr>
-      <th>Sighting ID</th>
-      <th>Ranger</th>
-      <th>Location</th>
-      <th>Sighting Time</th>
-      <th>Health</th>
-      <th>Age</th>
+      <td>$sighting.getId()</td>
+      <td>$sighting.getRanger()</td>
+      <td>$sighting.getLocation()</td>
+      <td>$sighting.getSightingTime()</td>
+      <td>$sighting.getHealth()</td>
+      <td>$sighting.getAge()</td>
     </tr>
-    #foreach($sighting in $sightings)
-      <tr>
-        <td>$sighting.getId()</td>
-        <td>$sighting.getRanger()</td>
-        <td>$sighting.getLocation()</td>
-        <td>$sighting.getSightingTime()</td>
-        <td>$sighting.getHealth()</td>
-        <td>$sighting.getAge()</td>
-        <td><a href="/endangered-animal/$endangeredAnimal.getName()/$endangeredAnimal.getId()/$sighting.getId()/edit" class="btn btn-info">Edit</a></td>
-        <td>
-          <form action="/endangered-animal/$endangeredAnimal.getName()/$endangeredAnimal.getId()/$sighting.getId()/delete" method="post">
-            <button type="submit" class="btn btn-danger">Delete</button>
-          </form>
-        </td>
-      </tr>
-    #end
-  </table>
-#end
+</table>
 <hr>
-<h4>Add a sighting of $endangeredAnimal.getName():</h4>
-<form action="/endangered-animal/$endangeredAnimal.getName()/$endangeredAnimal.getId()/sighting" method="post">
+<h4>Edit sighting of $endangeredAnimal.getName():</h4>
+<form action="/endangered-animal/$endangeredAnimal.getName()/$endangeredAnimal.getId()/$sighting.getId()/update" method="post">
   <div class="row">
     <div class="form-group col-md-2">
-      <label for="ranger"><h4>Ranger:</h4></label>
-      <input id="ranger" name="ranger" type="text" class="form-control" placeholder="Name">
+      <label class="control-label" for="ranger"><h4>Ranger:</h4></label>
+      <input id="ranger" name="ranger" type="text" class="form-control" value="$sighting.getRanger()">
     </div>
     <div class="form-group col-md-3 col-md-offset-1">
       <h4>Location:</h4>
@@ -77,5 +65,6 @@
       </label>
     </div>
   </div>
-  <button type="submit" class="btn btn-success">Add Sighting</button>
+  <button type="submit" class="btn btn-success">Update Sighting</button>
+  <a href="/endangered-animal/$endangeredAnimal.getName()/$endangeredAnimal.getId()/details" class="btn btn-info">$endangeredAnimal.getName() Details</a>
 </form>

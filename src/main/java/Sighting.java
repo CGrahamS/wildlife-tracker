@@ -141,6 +141,22 @@ public class Sighting implements DatabaseManagement {
       con.createQuery(updateSightingQuery)
          .addParameter("location", location)
          .addParameter("ranger", ranger)
+         .addParameter("id", id)
+         .executeUpdate();
+    }
+  }
+
+  public void updateEndangered(String location, String ranger, String health, String age) {
+    if (ranger == null || ranger.trim().isEmpty()) {
+      throw new IllegalArgumentException("You can't update a sighting without specifying a ranger!");
+    }
+    try(Connection con = DB.sql2o.open()) {
+      this.location = location;
+      this.ranger = ranger;
+      String updateSightingQuery = "UPDATE sightings SET location = :location, ranger = :ranger, health = :health, age = :age WHERE id =:id";
+      con.createQuery(updateSightingQuery)
+         .addParameter("location", location)
+         .addParameter("ranger", ranger)
          .addParameter("health", health)
          .addParameter("age", age)
          .addParameter("id", id)
