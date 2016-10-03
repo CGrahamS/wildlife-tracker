@@ -1,1 +1,13 @@
+.header {
+  text-align: center;
+  margin-bottom: 2%;
+}
 
+.animal-list {
+  text-align: center;
+}
+
+.animal-list li {
+  list-style: none;
+  text-align: center;
+}

@@ -12,12 +12,10 @@
 |----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
 | Program creates animal entry.          | Example 1:<br>Name: Black Tailed Deer<br>Is the species endangered?<br>No.                                                                         | Black Tailed Deer                                                                                                                               |
 |                                        | Example 2:<br>Name: Roosevelt Elk<br>Is the species endangered?<br>Yes.<br>                                                                        | Roosevelt Elk                                                                                                                                   |
-| Program creates animal sighting entry. | Example 1:<br>Sighting: <br>Animal Species: Black Tailed Deer <br> Location: Zone A <br> Ranger: Dave                                              | Sighting #nth: <br>Black Tailed Deer<br>Location: Zone A <br> Ranger: Dave                                                                      |
-|                                        | Example 2:<br>Sighting:<br>Animal: Roosevelt Elk<br><ul>     <li>Health: Fair</li>    <li>Age: Adult</li> </ul>Location: Zone A<br>Ranger: Dave    | Sighting #nth: <br>Animal: Roosevelt Elk<br><ul>     <li>Health: Fair</li>    <li>Age: Adult</li> </ul>Location: Zone A <br> Ranger: Dave       |
-| Program updates animal entries.        | Update:Name: Black Tail Deer<br>Is the species endangered?<br>Yes.                                                                                 | Black Tail Deer                                                                                                                                 |
-| Program updates sighting entries.      | Update:Sighting: <br>Animal: Black Tail Deer <br><ul>     <li>Health: Fair</li>    <li>Age: Adult</li> </ul>Location: Zone B <br> Ranger: Brad     | Sighting #nth: <br>Animal: Black Tail Deer<br><ul>     <li>Health: Fair</li>    <li>Age: Adult</li> </ul>Location: Zone B <br> Ranger: Brad     |
-| Program deletes animal entries.        | Delete:Panda Bear                                                                                                                                  |                                                                                                                                                 |
-| Program deletes sighting entries.      | Delete:Sighting #nth                                                                                                                               |                                                                                                                                                 ||
+| Program creates animal sighting entry. | Example 1:<br>Sighting: <br>Animal Species: Black Tailed Deer <br> Location: Zone A <br> Ranger: Dave                                              | Sighting ID#: <br>Black Tailed Deer<br>Location: Zone A <br> Ranger: Dave                                                                       |
+|                                        | Example 2:<br>Sighting:<br>Animal: Roosevelt Elk<br><ul>     <li>Health: Fair</li>    <li>Age: Adult</li> </ul>Location: Zone A<br>Ranger: Dave    | Sighting ID#: <br>Animal: Roosevelt Elk<br><ul>     <li>Health: Fair</li>    <li>Age: Adult</li> </ul>Location: Zone A <br> Ranger: Dave        |
+| Program updates sighting entries.      | Update:Sighting: <br>Animal: Black Tail Deer <br><ul>     <li>Health: Fair</li>    <li>Age: Adult</li> </ul>Location: Zone B <br> Ranger: Brad     | Sighting ID#: <br>Animal: Black Tail Deer<br><ul>     <li>Health: Fair</li>    <li>Age: Adult</li> </ul>Location: Zone B <br> Ranger: Brad      |
+| Program deletes sighting entries.      | Delete:Sighting ID#                                                                                                                               |                                                                                                                                                 ||
 
 ## Setup/Installation Requirements
 
@@ -37,12 +35,12 @@
     <br>
     NOTE: You should see `animals` and `sightings` tables in the `wildlife_tracker` database.
 * Back in your third terminal window:
-  * Run the server: `$ gradle run`
+  * Run the app: `$ gradle run`
 * In the browser of your choosing, navigate to "localhost:4567" (tested in Chrome).
 
 ## Known Bugs
 
-None
+Allows empty location, health and age inputs
 
 ## Support and contact details
 
