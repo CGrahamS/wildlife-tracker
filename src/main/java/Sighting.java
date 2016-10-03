@@ -13,6 +13,11 @@ public class Sighting implements DatabaseManagement {
   private String age;
   private int animal_id;
 
+  public static final String LOCATION_1 = "Zone A";
+  public static final String LOCATION_2 = "Zone B";
+  public static final String LOCATION_3 = "Zone C";
+  public static final String LOCATION_4 = "Zone D";
+
   public static final String HEALTH_1 = "Healthy";
   public static final String HEALTH_2 = "Fair";
   public static final String HEALTH_3 = "Poorly";
@@ -126,6 +131,9 @@ public class Sighting implements DatabaseManagement {
   }
 
   public void update(String location, String ranger) {
+    if (ranger == null || ranger.trim().isEmpty()) {
+      throw new IllegalArgumentException("You can't update a sighting without specifying a ranger!");
+    }
     try(Connection con = DB.sql2o.open()) {
       this.location = location;
       this.ranger = ranger;

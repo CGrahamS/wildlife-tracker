@@ -1,7 +1,4 @@
 <h3>Sightings <small>($animal.getName())</small></h3>
-#if($sightings.size() < 1)
-  <h4>No sightings yet.</h4>
-#else
 <table class="table table-hover">
   <tr>
     <th>Sighting ID</th>
@@ -9,29 +6,20 @@
     <th>Location</th>
     <th>Sighting Time</th>
   </tr>
-  #foreach($sighting in $sightings)
     <tr>
       <td>$sighting.getId()</td>
       <td>$sighting.getRanger()</td>
       <td>$sighting.getLocation()</td>
       <td>$sighting.getSightingTime()</td>
-      <td><a href="/animal/$animal.getName()/$animal.getId()/$sighting.getId()/edit" class="btn btn-info">Edit</a></td>
-      <td>
-        <form action="/animal/$animal.getName()/$animal.getId()/$sighting.getId()/delete" method="post">
-          <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
-      </td>
     </tr>
-  #end
 </table>
-#end
 <hr>
-<h4>Add a sighting of $animal.getName():</h4>
-<form action="/animal/$animal.getName()/$animal.getId()/sighting" method="post">
+<h4>Edit sighting of $animal.getName():</h4>
+<form action="/animal/$animal.getName()/$animal.getId()/$sighting.getId()/update" method="post">
   <div class="row">
     <div class="form-group col-md-2">
       <label class="control-label" for="ranger"><h4>Ranger:</h4></label>
-      <input id="ranger" name="ranger" type="text" class="form-control" placeholder="Name">
+      <input id="ranger" name="ranger" type="text" class="form-control" value="$sighting.getRanger()">
     </div>
     <div class="form-group col-md-3 col-md-offset-1">
       <h4>Location:</h4>
@@ -49,5 +37,6 @@
       </label>
     </div>
   </div>
-  <button type="submit" class="btn btn-success">Add Sighting</button>
+  <button type="submit" class="btn btn-success">Update Sighting</button>
+  <a href="/animal/$animal.getName()/$animal.getId()/details" class="btn btn-info">$animal.getName() Details</a>
 </form>

@@ -93,7 +93,7 @@ public class Animal implements DatabaseManagement {
 
   public List<Sighting> getSightings() {
     try(Connection con = DB.sql2o.open()) {
-      String getSightingsQuery = "SELECT * FROM sightings WHERE animal_id = :id";
+      String getSightingsQuery = "SELECT * FROM sightings WHERE animal_id = :id ORDER BY sighting_time";
       return con.createQuery(getSightingsQuery)
                 .addParameter("id", id)
                 .executeAndFetch(Sighting.class);

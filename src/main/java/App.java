@@ -64,6 +64,10 @@ public class App {
       model.put("header", header);
       model.put("animal", animal);
       model.put("sightings", animal.getSightings());
+      model.put("location1", Sighting.LOCATION_1);
+      model.put("location2", Sighting.LOCATION_2);
+      model.put("location3", Sighting.LOCATION_3);
+      model.put("location4", Sighting.LOCATION_4);
       model.put("template", "templates/animal-details.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
@@ -118,6 +122,47 @@ public class App {
         return new ModelAndView(model, layout);
       }
       response.redirect("/endangered-animal/" + endangeredAnimal.getName() + "/" + endangeredAnimal.getId() + "/details");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/animal/:name/:id/:sighting_id/edit", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Animal animal = Animal.find(request.params(":name"), Integer.parseInt(request.params(":id")));
+      Sighting sighting = Sighting.find(Integer.parseInt(request.params(":sighting_id")));
+      model.put("title", animal.getName() + "'s Details");
+      model.put("header", header);
+      model.put("animal", animal);
+      model.put("sighting", sighting);
+      model.put("location1", Sighting.LOCATION_1);
+      model.put("location2", Sighting.LOCATION_2);
+      model.put("location3", Sighting.LOCATION_3);
+      model.put("location4", Sighting.LOCATION_4);
+      model.put("template", "templates/animal-sighting-edit.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/animal/:name/:id/:sighting_id/update", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Animal animal = Animal.find(request.params(":name"), Integer.parseInt(request.params(":id")));
+      Sighting sighting = Sighting.find(Integer.parseInt(request.params(":sighting_id")));
+      String location = request.queryParams("location");
+      String ranger = request.queryParams("ranger");
+      try {
+        sighting.update(location, ranger);
+      } catch (IllegalArgumentException exception){
+        response.redirect("/animal/" + animal.getName() + "/" + animal.getId() + "/" + sighting.getId() + "/edit");
+        return new ModelAndView(model, layout);
+      }
+      response.redirect("/animal/" + animal.getName() + "/" + animal.getId() + "/" + sighting.getId() + "/edit");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/animal/:name/:id/:sighting_id/delete", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Animal animal = Animal.find(request.params(":name"), Integer.parseInt(request.params(":id")));
+      Sighting sighting = Sighting.find(Integer.parseInt(request.params(":sighting_id")));
+      sighting.delete();
+      response.redirect("/animal/" + animal.getName() + "/" + animal.getId() + "/" + "/details");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
